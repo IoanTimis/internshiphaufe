@@ -44,7 +44,7 @@ app.use(cookieParser());
 const sequelize = require('./config/database');
 const User = require('./models/user');
 const Product = require('./models/product');
-const userBoughtProduct = require('./models/userBoughtProduct');
+const userBoughtProduct = require('./models/usersBoughtProducts');
 
 sequelize.sync({ force: false })
   .then(() => {

@@ -84,10 +84,15 @@ const loginPost = async (req, res, next) => {
   }
 };
   
-const logout = (req, res, next) => {
+const logout = (req, res) => {
   delete req.session.loggedInUser;
-  req.session.save();
-  res.redirect('/');
+  req.session.save(function(err) {
+    if (err) {
+      console.error('Eroare la salvarea sesiunii:', err);
+    } else {
+      res.redirect('/');
+    }
+  });
 };
 
 const search = async (req, res, next) => {
