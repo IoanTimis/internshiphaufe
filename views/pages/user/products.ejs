@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../../partials/header'); %>
+</header>
+
+<main>
+  <div class="jumbotron">
+    <h1>Bine ai venit!</h1>
+    <p>Produse: </p>
+    <ul id="ulProducts">
+      <% products.forEach(function(product) { %>
+        <li class="liProduct">
+          <strong><%= product.name %></strong>,
+          pret: <span><%= product.price %></span>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+<footer>
+    <%- include('../../partials/footer'); %>
+</footer>
+
+</body>
+</html>

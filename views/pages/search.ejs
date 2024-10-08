@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <br>
+    <main>
+      <form action="/search-results" method="GET">
+        <div class="form-group">
+          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Cauta" aria-label="Search">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Pret maxim:</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" name="maxPrice">
+            <option value="empty"></option>
+            <option value="500">500 lei</option>
+            <option value="1000">1000 lei</option>
+            <option value="1500">1500 lei</option>
+          </select>
+        </div>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cauta</button>
+      </form>
+      <br>
+      <div class="jumbotron">
+        <p>Produse: </p>
+        <ul id="ulSearchProducts">
+          <% products.forEach(function(product) { %>
+            <li class="liProduct">
+              <strong><%= product.name %></strong>,
+              pret: <span><%= product.price %></span>
+              <button class="btn buyBtn" data-id="<%=product.id%>">Cumpara</button>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>

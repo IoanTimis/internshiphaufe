@@ -1,0 +1,16 @@
+Cand cream un tabel trb sa specificam si baza de date in care il cream folosind "use + nume baza de date"
+sudo mysql folosim pt a intra in mysql
+mysql -u root -p pt a intra in mysql folosind parola pt user root al mysql
+
+
+CREATE TABLE employees (
+    id int AUTO_INCREMENT,
+    lastname varchar(255),
+    firstname varchar(255),
+    job varchar(255),
+    PRIMARY KEY (ID)
+);
+
+insert into employees(lastname, firstname, job) values ("bla", "DAni","servitor");
+insert into employees(lastname, firstname, job) values ("Vasile", "Vecinu","Alcoolist");
+

@@ -1,11 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">EJS is Fun</a>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/">Acasa</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/about">Despre</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/register">Inregistreaza-te</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/login">logheaza-te</a>
+    </li>
+    <% if (user === "vendor") { %>
+      <li class="nav-item">
+        <a class="nav-link" href="/vendor">Vanzator</a>
+      </li>
+    <% } %>
+    
+    <% if (user === "client") { %>
+      <li class="nav-item">
+        <a class="nav-link" href="/account">Cont</a>
+      </li>
+    <% } %>
+    
+    <% if (user === "admin") { %>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">Admin</a>
+      </li>
+    <% } %>
+
+    <li class="nav-item">
+      <a class="nav-link" href="/logout">Iesi din cont</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/search">Cauta</a>
     </li>
   </ul>
 </nav>

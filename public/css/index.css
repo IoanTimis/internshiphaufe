@@ -1,0 +1,104 @@
+.deleteBtn{
+  background-color: black;
+  color: white;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteBtn:hover{
+    background-color: #f44336;
+    color: white;
+}
+
+.deleteByAdminBtn{
+  background-color: black;
+  color: white;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteByAdminBtn:hover{
+    background-color: #f44336;
+    color: white;
+}
+
+.editBtn{
+  background-color: black;
+  color: white;
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.editBtn:hover{
+    background-color: #f44336;
+    color: white;
+}
+
+.buyBtn{
+  background-color: black;
+  color: white;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buyBtn:hover{
+    background-color: #f44336;
+    color: white;
+}
+
+
+.liProduct{
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+#ulProduse{
+  list-style-type: none;
+  padding: 0;
+}
+
+.liUsers{
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+#ulUsers{
+  list-style-type: none;
+  padding: 0;
+}
+
+main h1{
+  text-align: center;
+  margin-top: 200px;
+  margin-bottom: 200px;
+}
