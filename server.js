@@ -23,12 +23,11 @@ app.use(session({ secret: process.env.SESSION_SECRET,
   })
 );
 
-// Middleware pentru setarea variabilei globale user
 app.use((req, res, next) => {
   if (req.session.loggedInUser) {
-    res.locals.user = req.session.loggedInUser.type;
+    res.locals.loggedInUser = req.session.loggedInUser;
   } else {
-    res.locals.user = null;
+    res.locals.loggedInUser = null;
   }
   next();
 });
@@ -54,11 +53,11 @@ sequelize.sync({ force: false })
 const adminRoutes = require('./routes/admin');
 app.use('/admin', adminRoutes);
 
-const vendorRoutes = require('./routes/vendor');
-app.use('/vendor', vendorRoutes);
-
 const clientRoutes = require('./routes/client');
 app.use('/account',clientRoutes);
+
+const authRoutes = require('./routes/auth');
+app.use('/', authRoutes);
 
 const generalRoutes = require('./routes/general');
 app.use('/', generalRoutes);
