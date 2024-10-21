@@ -1,29 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="/">Acasa</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/about">Despre</a>
-    </li>
-    <% if (!loggedInUser) { %>
-      <li class="nav-item">
-        <a class="nav-link" href="/register">Inregistreaza-te</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/login">logheaza-te</a>
-      </li>
-    <% } %>
-    <li class="nav-item">
-      <a class="nav-link" href="/account">Cont</a>
-    </li>
-    <% if (loggedInUser) { %>
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Iesi din cont</a>
-      </li>
-    <% } %>
-    <li class="nav-item">
-      <a class="nav-link" href="/search">Cauta</a>
-    </li>
-  </ul>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Acasă</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Despre</a>
+        </li>
+        <% if (!loggedInUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Inregistreaza-te</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">logheaza-te</a>
+          </li>
+        <% } %>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Cont
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/account">Profil</a></li>        
+          </ul>
+        </li>
+        <% if (loggedInUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Iesi din cont</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
 </nav>
+

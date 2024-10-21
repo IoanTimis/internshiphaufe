@@ -1,14 +1,6 @@
 const User = require("../models/user");
 const Product = require("../models/product");
 
-const home = (req, res, next) => {
-    res.render('pages/admin/generalPages/index');
-};
-
-const about = (req, res, next) => {
-    res.render('pages/admin/generalPages/about');
-};
-
 const dashboard = (req, res, next) => {
   res.render('pages/admin/dashboard');
 };
@@ -114,8 +106,6 @@ const deleteProduct = async (req, res, next) => {
 
 
 module.exports = {
-  home,
-  about,
   dashboard,
   users,
   updateUser,

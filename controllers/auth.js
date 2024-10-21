@@ -57,10 +57,10 @@ const loginPost = async (req, res, next) => {
         type: user.type
       };
 
+      console.log('User logged in:', req.session.loggedInUser);
+
       delete req.session.redirectTo;
-      if (user.type === 'admin') {
-        res.redirect('/admin');
-      }else if (saveRedirect) {
+      if (saveRedirect) {
         res.redirect(saveRedirect);
       }
        else {

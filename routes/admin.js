@@ -8,9 +8,8 @@ router.use([isAdmin]);
 
 const adminController = require('../controllers/admin'); 
 
-router.get('/admin', adminController.home);
-router.get('/admin/about', adminController.about);
-router.get('/admin/dashboard', adminController.dashboard);
+
+router.get('/', adminController.dashboard);
 
 router.get('/users', adminController.users);
 router.put('/users/:userId', adminController.updateUser);
