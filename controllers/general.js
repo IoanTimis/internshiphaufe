@@ -1,15 +1,15 @@
 const Product = require("../models/product");
 const { Op } = require('sequelize');
 
-const home = (req, res, next) => {
+const home = (req, res) => {
   res.render('pages/generalPages/index');
 };
 
-const about = (req, res, next) => {
+const about = (req, res) => {
   res.render('pages/generalPages/about');
 };
 
-const search = async (req, res, next) => {
+const search = async (req, res) => {
   const products = await Product.findAll();
 
   if (!products) {
@@ -18,7 +18,7 @@ const search = async (req, res, next) => {
   res.render('pages/generalPages/search', { products: products });
 };
 
-const searchResults = async (req, res, next) => {
+const searchResults = async (req, res) => {
   const { search, maxPrice } = req.query;
 
   try {

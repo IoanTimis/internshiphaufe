@@ -1,87 +1,91 @@
 $(document).ready(function() {
-  // Products -----------------------------------------------------------------------------------------------------
-  $(".addForm").on('submit', function(e) {
-      e.preventDefault();
+	form = $('#Form');
+	modal = $('#Modal');
 
-      var form = $(this);
-      var url = form.attr('action');
-      var type = form.attr('method');
-      var data = form.serialize();
-      
-      $.ajax({
-          url: url,
-          type: type,
-          data: {
-              name: $(this).find('input[name="name"]').val(),
-              price: $(this).find('input[name="price"]').val()
-          },
-          success: function(response) {
-              var html = 
-              `<li class="liProduct">
-                  <strong>${response.name}</strong>,
-                  price: <span>${response.price}</span>
-                  <button class="btn editBtn" data-toggle="modal" data-target="#editModal" data-id="${response.id}">Edit</button>
-                  <button class="btn deleteBtn" data-id="${response.id}">Delete</button>
-              </li>`;
-              $('#ulProducts').append(html);
-              console.log(response);
-          }, 
-          error: function(error) {
-              console.log(error);
-          }
-      });
-  });
+	$(form).on('submit', function(e) {
+		e.preventDefault();
+		var url = form.attr('action');
+		var method = form.attr('method');
 
-  $(".editForm").on('submit', function(e) {
-      e.preventDefault();
-  
-      var form = $(this);
-      var url = form.attr('action');
-      var type = form.attr('method');
-      var data = form.serialize();
-      
-      $.ajax({
-          url: url + '/' + $(this).find('input[name="id"]').val(),
-          type: type,
-          data: {
-              name: $(this).find('input[name="name"]').val(),
-              price: $(this).find('input[name="price"]').val()
-          },
-          success: function(response) {
-              $(`#ulProducts li button[data-id=${response.id}]`).parent().find('strong').html(response.name);
-              $(`#ulProducts li button[data-id=${response.id}]`).parent().find('span').html(response.price);
-              console.log(response);
-          }, 
-          error: function(error) {
-              console.log(error);
-          }
-      });
-  });
+		var name = form.find('input[name=name]').val();
+		var price = form.find('input[name=price]').val();
+		var description = form.find('textarea[name=description]').val();
 
-  $('#ulProducts').on('click', '.deleteByAdminBtn', function() {
-      var id = $(this).data('id');
-      var li = $(this).parent();
-      
-      $.ajax({
-          url: '/admin/products' + '/' + id,
-          type: 'delete',
-          data: {},
-          success: function(response) {
-              li.remove();
-              console.log(response);
-          }, 
-          error: function(error) {
-              console.log(error);
-          }
-      });
-  });
+		$.ajax({
+			url: url,
+			method: method,
+			data: {
+				name: name,
+				price: price,
+			},
+			success: function(response) {
+				if(method === 'POST') {
+					let tr = `<tr data-id="${response.id}">
+									<td><span>${response.id}</span></td>
+									<td><span>${response.name}</span></td>
+									<td><span>${response.price}</span></td>
+									<td><span>${response.user_id}</span></td>
+									<td><span>${new Date(response.createdAt).toLocaleString()}</span></td>
+									<td><span>${new Date(response.updatedAt).toLocaleString()}</span></td>
+									<td>
+											<button class="btn btn-info" data-id="${response.id}">Editare</button>
+											<button class="btn btn-danger" data-id="${response.id}">Stergere</button>
+									</td>
+							</tr>`;
+					$('table tbody').append(tr);
+				}			
+				else {
+					let line = $(`tr[data-id=${response.id}]`);
+					line.find('td:eq(1) span').text(response.name);
+					line.find('td:eq(2) span').text(response.price);
+					alert('Product editat cu succes');
+				}
+				modal.modal('hide');
+			}
+		});
+	});
 
-  $('#ulProducts').on('click', '.editBtn', function() {
-      var id = $(this).data('id');
-      
-      $('#editModal').find('.editForm input[name="id"]').val(id);
-      $('#editModal').find('.editForm input[name="name"]').val($(this).parent().find('strong').html());
-      $('#editModal').find('.editForm input[name="price"]').val($(this).parent().find('span').html());
-  });
+	$('.addBtn').on('click', function() {
+		modal.find('.modal-title').text('Adauga Produs');
+		modal.find('.modal-footer button[type=submit]').text('Adauga');
+
+		form.attr('action', '/admin/product/add');
+		form.attr('method', 'POST');
+
+		form.find('input[name=name]').val('');
+		form.find('input[name=price]').val('');
+
+		modal.modal('show');
+	});
+
+	$('.btn-info').on('click', function() {
+		modal.find('.modal-title').text('Editeaza Produs');
+		modal.find('.modal-footer button[type=submit]').text('Editeaza');
+
+		let id = $(this).data('id');
+		let name = $(this).closest('tr').find('td:eq(1) span').text();
+		let price = $(this).closest('tr').find('td:eq(2) span').text();
+
+		form.attr('action', `/admin/product/update/${id}`);
+		form.attr('method', 'PUT');
+
+		form.find('input[name=name]').val(name);
+		form.find('input[name=price]').val(price);
+
+		modal.modal('show');
+	});
+
+	$('.btn-danger').on('click', function() {
+		let id = $(this).data('id');
+		let tr = $(this).closest('tr');
+
+		$.ajax({
+				url: `/admin/product/delete/${id}`,
+				method: 'DELETE',
+				success: function(response) {
+						tr.remove();
+				}
+		});
+	});
 
 });

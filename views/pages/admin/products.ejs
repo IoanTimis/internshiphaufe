@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <%- include('../../partials/admin/head') %>
+  <script src="/admin/js/product.js"></script>
 </head>
 <body>
 
@@ -15,7 +16,7 @@
   <div class="main-content">
     <header class="bg-light p-3 shadow-sm">
       <li class="header-item">
-        <button class="btn btn-primary addBtn">Adauga ...</button>
+        <button class="btn btn-primary addBtn">Adauga Produs</button>
       </li>
     </header>
     
@@ -26,10 +27,10 @@
             <th>ID</th>
             <th>Nume</th>
             <th>Pret</th>
-            <th>UserId</th>
+            <th>user_id</th>
             <th>Data creării</th>
             <th>Data modificării</th>
-            <th>Acțiuni</th>
+            <th>Actiuni</th>
           </tr>
         </thead>
         <tbody>
@@ -38,12 +39,12 @@
               <td><span><%= product.id %></span></td>
               <td><span><%= product.name %></span></td>
               <td><span><%= product.price %></span></td> 
-              <td><span><%= product.userId %></span></td>
+              <td><span><%= product.user_id %></span></td>
               <td><span><%= new Date(product.createdAt).toLocaleString() %></span></td> 
               <td><span><%= new Date(product.updatedAt).toLocaleString() %></span></td> 
               <td>
                 <button class="btn btn-info" data-id="<%= product.id %>">Editare</button>
-                <button class="btn btn-danger" data-id="<%= product.id %>">Ștergere</button>
+                <button class="btn btn-danger" data-id="<%= product.id %>">Stergere</button>
               </td>
             </tr>
           <% }); %>
@@ -67,16 +68,10 @@
                         <input type="text" class="form-control"  name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label">Descriere</label>
-                        <textarea class="form-control"  name="description" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="img_url" class="form-label">Url imagine</label>
-                        <input type="text" class="form-control"  name="img_url">
-                    </div>
-
+                        <label for="price" class="form-label">Pret</label>
+                        <input type="number" class="form-control"  name="price" required>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Inchide</button>
                         <button type="submit" class="btn btn-primary"></button>
                     </div>
                 </form>

@@ -1,12 +1,12 @@
 const User = require("../models/user");
 const Product = require("../models/product");
 
-const dashboard = (req, res, next) => {
+const dashboard = (req, res) => {
   res.render('pages/admin/dashboard');
 };
 
 //-users----------------------------------------------------------------------------------------------------------
-const users = async (req, res, next) => {
+const users = async (req, res) => {
 	try {
 			const allUsers = await User.findAll(); 
 			res.render('pages/admin/users', { users: allUsers }); 
@@ -16,12 +16,12 @@ const users = async (req, res, next) => {
 	}
 };
 
-const updateUser = async (req, res, next) => {
-	const {userId} = req.params;
+const updateUser = async (req, res) => {
+	const {user_id} = req.params;
 	const {name, email} = req.body;
 	
 	try {
-			const user = await User.findByPk(userId);
+			const user = await User.findByPk(user_id);
 			if (!user) {
 					return res.status(404).send('User not found');
 			}
@@ -35,11 +35,11 @@ const updateUser = async (req, res, next) => {
     }
 }
 
-const deleteUser = async (req, res, next) => {
-	const {userId} = req.params;
+const deleteUser = async (req, res) => {
+	const {user_id} = req.params;
 
 	try {
-			const user = await User.findByPk(userId);
+			const user = await User.findByPk(user_id);
 			if (!user) {
 					return res.status(404).send('User not found');
 			}
@@ -52,7 +52,7 @@ const deleteUser = async (req, res, next) => {
 };
 
 //products----------------------------------------------------------------------------------------------------------
-const products = async (req, res, next) => {
+const products = async (req, res) => {
 	try {
 			const allProducts = await Product.findAll();
 
@@ -66,7 +66,25 @@ const products = async (req, res, next) => {
 	}
 };
 
-const updateProduct = async (req, res, next) => {
+const addProduct = async (req, res) => {
+	const {name, price} = req.body;
+	const user_id = req.session.loggedInUser.id;
+
+	try {
+			const product = await Product.create({name, price, user_id});
+
+			if (!product) {
+					return res.status(404).send('Error adding product');
+			}
+			
+			res.status(201).json(product);
+	} catch (error) {
+			console.error('Error adding product:', error);
+			res.status(500).send('Internal Server Error');
+	}
+}
+
+const updateProduct = async (req, res) => {
 	const {productId} = req.params;
 	const {name, price} = req.body;
 
@@ -86,7 +104,7 @@ const updateProduct = async (req, res, next) => {
 	}
 }
 
-const deleteProduct = async (req, res, next) => {
+const deleteProduct = async (req, res) => {
 	const {productId} = req.params;
 	
 	try {
@@ -111,6 +129,7 @@ module.exports = {
   updateUser,
   deleteUser,
   products,
+	addProduct,
   updateProduct,
   deleteProduct
 };

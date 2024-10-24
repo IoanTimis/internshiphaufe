@@ -16,7 +16,7 @@ const UsersBoughtProducts = sequelize.define('userBP', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  userId: {
+  user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -35,7 +35,7 @@ const UsersBoughtProducts = sequelize.define('userBP', {
   },
 });
 
-User.hasMany(UsersBoughtProducts, { foreignKey: 'userId', onDelete: 'CASCADE' });
-UsersBoughtProducts.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(UsersBoughtProducts, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+UsersBoughtProducts.belongsTo(User, { foreignKey: 'user_id' });
 
 module.exports = UsersBoughtProducts;

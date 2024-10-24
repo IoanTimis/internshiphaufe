@@ -16,7 +16,7 @@ const Product = sequelize.define('product', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  userId: {
+  user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -34,8 +34,8 @@ const Product = sequelize.define('product', {
   },
 });
 
-User.hasMany(Product, { foreignKey: 'userId', onDelete: 'CASCADE' });
-Product.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(Product, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+Product.belongsTo(User, { foreignKey: 'user_id' });
 
 Product.searchProducts = async (search, maxPrice) => {
   let searchConditions = {};

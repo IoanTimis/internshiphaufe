@@ -2,15 +2,15 @@ const User = require("../models/user");
 const bcrypt = require('bcryptjs');
 const sanitizeHtml = require('sanitize-html');
 
-const register = (req, res, next) => {
+const register = (req, res) => {
   res.render('pages/auth/register');
 };
 
-const registerSuccess = (req, res, next) => {
+const registerSuccess = (req, res) => {
   res.render('pages/auth/register-success');
 };
 
-const  registerPost = async (req, res, next) => {
+const  registerPost = async (req, res) => {
   const password = await bcrypt.hash(req.body.password, 8);
   const { name, email, type } = req.body;
   sanitizeHtml(name);
@@ -27,7 +27,7 @@ const  registerPost = async (req, res, next) => {
   }
 };
 
-const login = (req, res, next) => {
+const login = (req, res) => {
   if (req.session.loggedInUser) {
     return res.redirect('/');
   }else{
@@ -35,7 +35,7 @@ const login = (req, res, next) => {
   }
 };
 
-const loginPost = async (req, res, next) => {
+const loginPost = async (req, res) => {
   const { email, password } = req.body;
   const saveRedirect = req.session.redirectTo;
 
