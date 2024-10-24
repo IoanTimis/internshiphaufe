@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require('bcryptjs');
 const sanitizeHtml = require('sanitize-html');
+const Joi = require('joi');
 
 const register = (req, res) => {
   res.render('pages/auth/register');
@@ -10,22 +11,40 @@ const registerSuccess = (req, res) => {
   res.render('pages/auth/register-success');
 };
 
-const  registerPost = async (req, res) => {
-  const password = await bcrypt.hash(req.body.password, 8);
-  const { name, email, type } = req.body;
-  sanitizeHtml(name);
-  sanitizeHtml(email);
 
-  try{
-    
-    const user = await User.create({name, email, password, type});
+const userSchema = Joi.object({
+  name: Joi.string().required().min(3).max(30),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+  type: Joi.string().required()
+});
+
+const registerPost = async (req, res) => {
+  try {
+    const value = await userSchema.validateAsync(req.body);
+    const existingUser = await User.findOne({ where: { email: value.email } });
+    if (existingUser) {
+      throw new Error('Email already in use');
+    }
+
+    const password = await bcrypt.hash(value.password, 8);
+    const sanitizedData = {
+      name: sanitizeHtml(value.name),
+      email: value.email, 
+      password,
+      type: value.type
+    };
+    const user = await User.create(sanitizedData);
+
     res.render('pages/auth/register-success', { user });
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error registering user:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(400).render('pages/auth/register', {
+      error: error.message || 'Failed to register user'
+    });
   }
 };
+
 
 const login = (req, res) => {
   if (req.session.loggedInUser) {
