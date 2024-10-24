@@ -16,24 +16,6 @@
     color: white;
 }
 
-.deleteByAdminBtn{
-  background-color: black;
-  color: white;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.deleteByAdminBtn:hover{
-    background-color: #f44336;
-    color: white;
-}
-
 .editBtn{
   background-color: black;
   color: white;

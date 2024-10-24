@@ -52,5 +52,33 @@
     </div>
   </div>
 
+  <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalLabel">Editeaza utilizator</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 id="modalMsg"></h6>
+                <form action="" method="" id="Form">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nume</label>
+                        <input type="text" class="form-control"  name="name" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="text" class="form-control"  name="email" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>
+                        <button type="submit" class="btn btn-primary">Editeaza</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

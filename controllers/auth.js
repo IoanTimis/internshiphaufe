@@ -43,11 +43,11 @@ const loginPost = async (req, res, next) => {
     try {
       const user = await User.findOne({ where: { email } });
       if (!user) {
-        return res.redirect('pages/login', { error: 'Invalid email or password' });
+        return res.status(401).render('pages/auth/login', { error: 'Invalid email or password' });
       }
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
-        return res.redirect('pages/login', { error: 'Invalid email or password' });
+        return res.status(401).render('pages/auth/login', { error: 'Invalid email or password' });
       }
 
       req.session.loggedInUser = {

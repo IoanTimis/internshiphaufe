@@ -12,11 +12,11 @@ const adminController = require('../controllers/admin');
 router.get('/', adminController.dashboard);
 
 router.get('/users', adminController.users);
-router.put('/users/:userId', adminController.updateUser);
-router.delete('/users/:userId', adminController.deleteUser);
+router.put('/user/update/:userId', adminController.updateUser);
+router.delete('/user/delete/:userId', adminController.deleteUser);
 
 router.get('/products', adminController.products);
-router.put('/products/:productId', adminController.updateProduct);
-router.delete('/products/:productId', adminController.deleteProduct);
+router.put('/product/update/:productId', adminController.updateProduct);
+router.delete('/product/delete/:productId', adminController.deleteProduct);
 
 module.exports = router;
