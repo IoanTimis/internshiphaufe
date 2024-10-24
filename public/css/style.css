@@ -61,24 +61,6 @@
   position: relative;
 }
 
-#ulProduse{
-  list-style-type: none;
-  padding: 0;
-}
-
-.liUsers{
-  background-color: #f9f9f9;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  position: relative;
-}
-
-#ulUsers{
-  list-style-type: none;
-  padding: 0;
-}
-
 .footer {
   position: relative;
   width: 100%;

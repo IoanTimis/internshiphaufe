@@ -1,9 +1,9 @@
 $(document).ready(function() {
     
-    $('#ulSearchProducts').on('click', '.buyBtn', function(e) {
+    $('.buyBtn').on('click', function(e) {
         e.preventDefault();
         $.ajax({
-            url: '/account/success',
+            url: '/account/BoughtProduct',
             type: 'post',
             data: {
                     name: $(this).parent().find('strong').html(),

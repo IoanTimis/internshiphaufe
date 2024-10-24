@@ -21,7 +21,7 @@ const home = async (req, res, next) => {
   }
 };
 
-const success = async (req, res, next) => {
+const Boughtproduct = async (req, res, next) => {
   const userId = req.session.loggedInUser.id;
   const { name, price } = req.body;
   sanitizeHtml(name);
@@ -45,6 +45,6 @@ const success = async (req, res, next) => {
 
 module.exports = {
   home,
-  success
+  Boughtproduct
 };
 

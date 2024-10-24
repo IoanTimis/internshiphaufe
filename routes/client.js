@@ -9,6 +9,6 @@ router.use([isLogged]);
 const userController = require('../controllers/client'); 
 
 router.get('/', userController.home); 
-router.post('/success', userController.success);
+router.post('/BoughtProduct', userController.Boughtproduct);
 
 module.exports = router; 
