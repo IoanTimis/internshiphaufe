@@ -1,7 +1,12 @@
 const sanitizeHtml = require('sanitize-html');
 const usersBoughtProducts = require('../models/usersBoughtProducts');
+const Joi = require('joi');
 
-const home = async (req, res) => {
+const home = (req, res) => {
+  res.render('pages/user/index');
+};
+
+const purchaseHistory = async (req, res) => {
   const user_id = req.session.loggedInUser.id;
 
   try {
@@ -45,6 +50,7 @@ const Boughtproduct = async (req, res) => {
 
 module.exports = {
   home,
+  purchaseHistory,
   Boughtproduct
 };
 

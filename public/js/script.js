@@ -2,12 +2,16 @@ $(document).ready(function() {
     
     $('.buyBtn').on('click', function(e) {
         e.preventDefault();
+        var name = $(this).parent().find('strong').html();
+        var price = $(this).parent().find('span').html();
+        var csrf_token = $('#csrf_token').val();
         $.ajax({
-            url: '/account/BoughtProduct',
+            url: '/account/purchase/add',
             type: 'post',
             data: {
-                    name: $(this).parent().find('strong').html(),
-                    price: $(this).parent().find('span').html()
+                    name: name,
+                    price: price,
+                    csrf_token: csrf_token
              },
             success: function(response) {
                 console.log(response);

@@ -8,7 +8,8 @@ router.use([isLogged]);
 
 const userController = require('../controllers/client'); 
 
-router.get('/', userController.home); 
-router.post('/BoughtProduct', userController.Boughtproduct);
+router.get('/', userController.home);
+router.get('/purchase-history', userController.purchaseHistory); 
+router.post('/purchase/add', userController.Boughtproduct);
 
 module.exports = router; 

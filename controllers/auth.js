@@ -21,7 +21,6 @@ const userSchema = Joi.object({
   password: Joi.string().min(6).required(),
   passwordConfirm: Joi.string().valid(Joi.ref('password')).required(),
   csrf_token: Joi.string().required(),
-  type: Joi.string().required()
 });
 
 const registerPost = async (req, res) => {
@@ -37,7 +36,7 @@ const registerPost = async (req, res) => {
       name: sanitizeHtml(value.name),
       email: sanitizeHtml(value.email), 
       password,
-      type: value.type
+      type: 'client'
     };
     const user = await User.create(sanitizedData);
 

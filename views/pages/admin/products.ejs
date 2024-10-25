@@ -37,8 +37,8 @@
           <% products.forEach(product => { %>
             <tr data-id="<%= product.id %>">
               <td><span><%= product.id %></span></td>
-              <td><span><%= product.name %></span></td>
-              <td><span><%= product.price %></span></td> 
+              <td><span class="name"><%= product.name %></span></td>
+              <td><span class="price"><%= product.price %></span></td> 
               <td><span><%= product.user_id %></span></td>
               <td><span><%= new Date(product.createdAt).toLocaleString() %></span></td> 
               <td><span><%= new Date(product.updatedAt).toLocaleString() %></span></td> 
@@ -63,6 +63,7 @@
             <div class="modal-body">
                 <h6 id="modalMsg"></h6>
                 <form action="" method="" id="Form">
+                    <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nume</label>
                         <input type="text" class="form-control"  name="name" required>

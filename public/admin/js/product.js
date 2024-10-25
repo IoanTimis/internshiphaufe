@@ -1,6 +1,7 @@
 $(document).ready(function() {
-	form = $('#Form');
-	modal = $('#Modal');
+	var form = $('#Form');
+	var modal = $('#Modal');
+	var csrf_token = form.find('input[name=csrf_token]').val();
 
 	$(form).on('submit', function(e) {
 		e.preventDefault();
@@ -9,7 +10,6 @@ $(document).ready(function() {
 
 		var name = form.find('input[name=name]').val();
 		var price = form.find('input[name=price]').val();
-		var description = form.find('textarea[name=description]').val();
 
 		$.ajax({
 			url: url,
@@ -17,6 +17,7 @@ $(document).ready(function() {
 			data: {
 				name: name,
 				price: price,
+				csrf_token: csrf_token
 			},
 			success: function(response) {
 				if(method === 'POST') {
@@ -41,6 +42,8 @@ $(document).ready(function() {
 					alert('Product editat cu succes');
 				}
 				modal.modal('hide');
+			},error: function(response) {
+				alert(response.responseJSON.message);
 			}
 		});
 	});
@@ -63,14 +66,14 @@ $(document).ready(function() {
 		modal.find('.modal-footer button[type=submit]').text('Editeaza');
 
 		let id = $(this).data('id');
-		let name = $(this).closest('tr').find('td:eq(1) span').text();
-		let price = $(this).closest('tr').find('td:eq(2) span').text();
-
-		form.attr('action', `/admin/product/update/${id}`);
-		form.attr('method', 'PUT');
+		let name = $(this).closest('tr').find('.name').text();
+		let price = $(this).closest('tr').find('.price').text();
 
 		form.find('input[name=name]').val(name);
 		form.find('input[name=price]').val(price);
+
+		form.attr('action', `/admin/product/update/${id}`);
+		form.attr('method', 'PUT');
 
 		modal.modal('show');
 	});
@@ -82,6 +85,9 @@ $(document).ready(function() {
 		$.ajax({
 				url: `/admin/product/delete/${id}`,
 				method: 'DELETE',
+				data: {
+						csrf_token: csrf_token
+				},
 				success: function(response) {
 						tr.remove();
 				}

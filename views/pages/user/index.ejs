@@ -1,19 +1,29 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('../../partials/head'); %>
+  <%- include('../../partials/head') %>
+  <link rel="stylesheet" href="/css/account.css">
 </head>
-<body class="container">
+<body>
 
-    <header>
-        <%- include('../../partials/header'); %>
+  <div class="sidebar">
+    <a href="/account">Cont</a>
+    <a href="/account/purchase-history">Istoric achizitii</a>
+    <a href="/">Inapoi la cumparaturi</a>
+    <a href="/logout">iesi din cont</a>
+  </div>
+
+  <div class="main-content">
+    <header class="bg-light p-3 shadow-sm">
+      <li class="header-item">
+        <h1>Contul meu</h1>
+      </li>
     </header>
-
-    <main>
-        <h1>Bine ai venit!</h1>
-    </main>
     
-    <%- include('../../partials/footer'); %>
+    <div class="container mt-3">
+      <h2>Bine ai venit in contul tau, <%= loggedInUser.name %></h2>
+      <p>Aici puteti vedea informatii despre istoricul de cumparaturilor</p>
+    </div>
 
+  </div>
 </body>
 </html>
