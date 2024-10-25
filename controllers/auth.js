@@ -2,9 +2,12 @@ const User = require("../models/user");
 const bcrypt = require('bcryptjs');
 const sanitizeHtml = require('sanitize-html');
 const Joi = require('joi');
+const generate_csrf_token = require('../helpers/helper').generate_csrf_token;
 
 const register = (req, res) => {
-  res.render('pages/auth/register');
+  res.render('pages/auth/register', {
+    csrf_token: generate_csrf_token(req)
+  });
 };
 
 const registerSuccess = (req, res) => {
@@ -16,6 +19,8 @@ const userSchema = Joi.object({
   name: Joi.string().required().min(3).max(30),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
+  passwordConfirm: Joi.string().valid(Joi.ref('password')).required(),
+  csrf_token: Joi.string().required(),
   type: Joi.string().required()
 });
 
@@ -30,7 +35,7 @@ const registerPost = async (req, res) => {
     const password = await bcrypt.hash(value.password, 8);
     const sanitizedData = {
       name: sanitizeHtml(value.name),
-      email: value.email, 
+      email: sanitizeHtml(value.email), 
       password,
       type: value.type
     };
