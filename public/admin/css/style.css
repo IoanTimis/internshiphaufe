@@ -44,6 +44,10 @@ header {
   background-color: #343a40;
 }
 
+.header-item h1 {
+  color: #f8f9fa;
+}
+
 .header-item a {
   color: #f8f9fa;
   text-decoration: none;
