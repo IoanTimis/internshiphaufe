@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body class="container">
+    <header>
+      <%- include('../../partials/header'); %>
+    </header>
+    <main>
+      <div class="container">
+          <% if (reservations && reservations.length > 0) { %>
+              <% reservations.forEach(function(reservation) { %>
+                  <div class="reservation-card">
+                      <h1>Rezervare cerută de: <%= user.name %></h1>
+                      <p>Rezervare pentru petrecerea <%= reservation.party.name %></p>
+                      <p>Locuri disponibile: <%= reservation.party.max_entries %></p>
+                      <p>Locuri ocupate: <%= reservation.party.entries_number %></p>
+                      <p>Stare petrecere: <%= reservation.party.status %></p>
+                      <p>Locuri rămase: <%= reservation.party.max_entries - reservation.party.entries_number %></p>
+  
+                      <button class="btn btn-info editBtn acceptReservationBtn" data-id="<%= reservation.id %>">Acceptă</button>
+                      <button class="btn btn-danger deleteBtn deleteReservationBtn" data-id="<%= reservation.id %>">Șterge</button>
+                  </div>
+              <% }); %>
+          <% } else { %>
+              <p>Nu există rezervări disponibile.</p>
+          <% } %>
+      </div>
+  </main>
+  
+
+
+    <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="reservationModalLabel">Accepta rezervare</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="" method="POST" id="reservationForm">
+                    <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
+                    <div class="mb-3">
+                      <label for="messageContent" class="form-label">Mesaj</label>
+                      <textarea class="form-control" id="messageContent" name="content" rows="3" required></textarea>
+                    </div>                                      
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>
+                          <button type="submit" class="btn btn-primary">Salvează</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <%- include('../../partials/footer'); %>
+
+</body>
+</html>

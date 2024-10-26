@@ -11,6 +11,7 @@ router.get('/about', generalController.about);
 
 router.get('/party/:id', generalController.party, isLogged);
 router.get('/parties', generalController.parties, isLogged);
+router.post('/party/reserve/:id', generalController.addReservation, isLogged);
 // router.get('/search-results', generalController.searchResults);
 
 module.exports = router; 

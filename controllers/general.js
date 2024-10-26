@@ -1,4 +1,7 @@
+const Joi = require('joi');
 const Party = require('../models/party');
+const Reservation = require('../models/reservation');
+const { check_csrf_token } = require('../middlewares/csrfToken');
 
 const home = (req, res) => {
   res.render('pages/generalPages/index');
@@ -25,7 +28,7 @@ const party = async (req, res) => {
 };
 
 const parties = async (req, res) => {
-  const parties = await party.findAll();
+  const parties = await Party.findAll();
   if (!parties) {
     return res.status(404).send('No parties found');
   }
@@ -34,6 +37,11 @@ const parties = async (req, res) => {
 };
 
 const addReservation = async (req, res) => {
+
+  const schema = Joi.object({
+    csrf_token: Joi.string().required(),
+  });
+
   const party_id = req.params.id;
   const user_id = req.session.loggedInUser.id;
 
@@ -43,7 +51,11 @@ const addReservation = async (req, res) => {
       return res.status(404).send('Party not found');
     }
 
-    const reservation = await party.addReservation(user_id);
+    const reservation = await Reservation.create({
+      party_id: party_id,
+      user_id: user_id,
+    });
+   
     res.json({ message: 'Reservation created' });
   } catch (error) {
     console.error('Error creating reservation:', error);
@@ -78,5 +90,6 @@ module.exports = {
   about,
   party,
   parties,
+  addReservation,
 };
 

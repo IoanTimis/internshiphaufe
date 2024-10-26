@@ -15,5 +15,6 @@ router.get('/my-parties', userController.myParties);
 router.post('/party/add', userController.addParty);
 router.put('/party/edit/:id', userController.editParty);
 router.delete('/party/delete/:id', userController.deleteParty);
-
+router.get('/my-reservations', userController.myReservations);
+router.post('/reservation/accept/:id', userController.acceptReservation);
 module.exports = router; 

@@ -123,11 +123,12 @@ $(document).ready(function() {
     // general--------------------------------------------------------------
 
     $('.reservationBtn').on('click', function() {
+        console.log('Reservation button clicked');
         const partyId = $(this).data('id');
-        var csrf_token = $('#partyForm').find('input[name="csrf_token"]').val();
+        var csrf_token = $('main').find('input[name="csrf_token"]').val();
     
         $.ajax({
-            url: `/account/party/reserve/${partyId}`,
+            url: `/party/reserve/${partyId}`,
             method: 'POST',
             data: {
                 csrf_token: csrf_token
@@ -135,7 +136,6 @@ $(document).ready(function() {
             success: function(response) {
                 if(response.message === 'Reservation created') {
                     alert('Reservation created');
-                    window.location.href = '/account/my-parties';
                 }
             },
             error: function(error) {
@@ -143,6 +143,45 @@ $(document).ready(function() {
                 alert('An error occurred while creating reservation.');
             }
         });
+    });
+
+    //Accept reservation--------------------------------------------------------------
+    $('.reservationForm').on('submit', function(e) {
+        e.preventDefault();
+        var reservationId = $(this).find('input[name="reservation_id"]').val();
+        var message = $(this).find('textarea[name="message"]').val();
+        var csrf_token = $(this).find('input[name="csrf_token"]').val();
+
+        var url = $(this).attr('action');
+    
+        $.ajax({
+            url: url,
+            method: 'PUT',
+            data: {
+                
+                csrf_token: csrf_token,
+                message: message
+            },
+            success: function(response) {
+                if(response.message === 'Reservation accepted') {
+                    alert('Reservation accepted');
+                    window.location.href = '/account/my-reservations';
+                }
+            },
+            error: function(error) {
+                console.error('Error accepting reservation:', error);
+                alert('An error occurred while accepting reservation.');
+            }
+        });
+    });
+
+    $('.acceptReservationBtn').on('click', function() {
+        var reservationId = $(this).data('id');
+        let form = $('#reservationForm');
+        let modal = $('#reservationModal');
+        form.attr('action', `/account/reservation/accept/${reservationId}`);
+        modal.modal('show');
+        
     });
     
 

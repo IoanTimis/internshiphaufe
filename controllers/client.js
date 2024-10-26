@@ -2,6 +2,8 @@ const sanitizeHtml = require('sanitize-html');
 const Joi = require('joi');
 const User = require('../models/user');
 const Party = require('../models/party');
+const Reservation = require('../models/reservation');
+const Message = require('../models/message');
 
 const home = (req, res) => {
   res.render('pages/user/index');
@@ -199,6 +201,85 @@ const deleteParty = async (req, res) => {
   }
 };
 
+const myReservations = async (req, res) => {
+  const user_id = req.session.loggedInUser.id;
+
+  const user = await User.findByPk(user_id);
+
+  try {
+    const user_parties = await Party.findAll({
+      where: {
+        user_id: user_id,
+      },
+    });
+
+    const user_reservations = await Reservation.findAll({
+      where: {
+        party_id: user_parties.map(party => party.id),
+      },
+      include: [
+        {
+          model: Party,
+          as: 'party',
+        },
+      ],
+    });
+      
+
+    if (!user_reservations) {
+       return res.render('pages/user/myReservations', { reservation: {}, message: 'No reservations found' });
+    }
+
+    res.render('pages/user/mypartiesReservations', { reservations: user_reservations, user: user });
+  } catch (error) {
+    console.error('Error getting user reservations:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+const acceptReservation = async (req, res) => {
+  const user_id = req.session.loggedInUser.id;
+  const reservation_id = req.params.id;
+
+  const message = req.body.message;
+
+  try {
+    const reservation = await Reservation.findOne({
+      where: {
+        id: reservation_id,
+      },
+      include: [
+        {
+          model: Party,
+          as: 'party',
+          where: {
+            user_id: user_id,
+          },
+        },
+      ],
+    });
+
+    if (!reservation) {
+      return res.status(404).send('Reservation not found');
+    }
+
+    reservation.status = 'accepted';
+    await reservation.save();
+
+    const newMessage = await Message.create({
+      message: message,
+      user_id: reservation.user_id,
+      party_id: reservation.party_id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    res.json({ message: 'Reservation accepted' });
+  } catch (error) {
+    console.error('Error accepting reservation:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
 
 
 module.exports = {
@@ -209,5 +290,7 @@ module.exports = {
   addParty,
   editParty,
   deleteParty,
+  myReservations,
+  acceptReservation,
 };
 

@@ -23,6 +23,8 @@
             <div>
                 <button class="btn btn-info reservationBtn editBtn" data-id="<%= party.id %>">Rezervare loc petrece</button>
             </div>
+            <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
+
     </main>
 
     <%- include('../../partials/footer'); %>
