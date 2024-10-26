@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body class="container">
+    <header>
+      <%- include('../../partials/header'); %>
+    </header>
+    <main>
+        <h1>Detalii despre: <%= party.title %></h1>
+        <p>Suma intrare <%= party.entry %></p>
+        <p>Descriere: <%= party.description %></p>
+        <p>Adresa: <%= party.address %></p>
+        <p>Locuri disponibile: <%= party.max_entries %></p>
+        <p>Stare petrecere <%= party.status %></p>
+        <p>Locuri ramase:</p>
+
+        <% if (!requested) { %>
+            <button type="button" class="btn btn-primary applyBtn" data-bs-toggle="modal" data-bs-target="#reqMessageModal">
+                Aplica
+            </button>
+        <% } else { %>
+            <h2>Ai aplicat deja pt acest party</h2>
+        <% } %>    
+    </main>
+
+    <div class="modal fade" id="reqMessageModal" tabindex="-1" aria-labelledby="reqMessageModalLabel" aria="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="reqMessageModalLabel">Aplicare la o tema</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 id="modalMsg"></h6>
+                    <form action="/student/new/request" method="post" id="reqpartyForm">
+                        <input type="hidden" value="<%=party.id%>" name="party_id">
+                        <input type="hidden" value="<%=party.user.id%>" name="teacher_id">
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Mesaj</label>
+                            <textarea class="form-control"  name="message" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>
+                            <button type="submit" class="btn btn-primary">Aplica</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../../partials/footer'); %>
+
+</body>
+</html>

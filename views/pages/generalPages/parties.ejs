@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../partials/head'); %>
+</head>
+<body class="container">
+
+    <header>
+        <%- include('../../partials/header'); %>
+    </header>
+    <br>
+    <main class="flex-grow-1">
+      <input type="hidden" name="csrf_token" id="csrf_token" value="<%= csrf_token %>">
+      <form action="/search-results" method="GET">
+        <div class="form-group">
+          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Cauta" aria-label="Search">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Pret maxim intrare:</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" name="maxPrice">
+            <option value="empty"></option>
+            <option value="500">500 lei</option>
+            <option value="1000">1000 lei</option>
+            <option value="1500">1500 lei</option>
+          </select>
+        </div>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Cauta</button>
+      </form>
+      <br>
+      <div class="container partiesContainer">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <% parties.forEach(function(party) { %>
+                    <div class="col"  data-teacher="<%= party.user_id %>">
+                        <a href="/party/<%= party.id %>" class="text-decoration-none text-dark">
+                        <div class="card">
+                            <img src="<%= logo.img_url %>" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">Titlu: <%= party.title %></h5>
+                                <p>Descriere: <%= truncateText(party.description, 40) %></p>
+                                <p class="card-text">Cuvinte cheie: <%= party.keywords %></p>
+                                <p class="card-text">Locuri: <%= party.slots %></p>
+                                <p class="card-text">Tip: <%= party.education_level %></p>
+                                <p class="card-text">Profesor: <%= party.user.name %></p>
+                            </div>
+                        </div>
+                    
+                    <div class="card-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-primary applyBtn">
+                            Detalii
+                        </button>
+                      </div>
+                    </a>
+                </div>
+        <% }); %>
+    </div>
+</div>
+    </main>
+
+    <%- include('../../partials/footer'); %>
+
+</body>
+</html>

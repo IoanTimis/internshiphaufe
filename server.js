@@ -51,8 +51,9 @@ app.use(cookieParser());
 //models------------------------------------------------------------------------------------------------------
 const sequelize = require('./config/database');
 const User = require('./models/user');
-const Product = require('./models/product');
-const userBoughtProduct = require('./models/usersBoughtProducts');
+const Party = require('./models/party');
+const Invitation = require('./models/invitation');
+const Item = require('./models/item');
 
 sequelize.sync({ force: false })
   .then(() => {

@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const Product = require("../models/product");
+const Product = require("../models/party");
 
 const dashboard = (req, res) => {
   res.render('pages/admin/dashboard');

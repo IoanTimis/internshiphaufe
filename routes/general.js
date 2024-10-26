@@ -7,7 +7,8 @@ const generalController = require('../controllers/general');
 router.get('/', generalController.home); 
 router.get('/about', generalController.about);
 
-router.get('/search', generalController.search);
-router.get('/search-results', generalController.searchResults);
+router.get('/party/:id', generalController.party);
+router.get('/parties', generalController.parties);
+// router.get('/search-results', generalController.searchResults);
 
 module.exports = router; 
