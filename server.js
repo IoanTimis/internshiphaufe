@@ -52,7 +52,7 @@ app.use(cookieParser());
 const sequelize = require('./config/database');
 const User = require('./models/user');
 const Party = require('./models/party');
-const Invitation = require('./models/invitation');
+const Reservation = require('./models/reservation');
 
 sequelize.sync({ force: false })
   .then(() => {

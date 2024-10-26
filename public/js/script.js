@@ -119,6 +119,31 @@ $(document).ready(function() {
             }
         });
     });
+
+    // general--------------------------------------------------------------
+
+    $('.reservationBtn').on('click', function() {
+        const partyId = $(this).data('id');
+        var csrf_token = $('#partyForm').find('input[name="csrf_token"]').val();
+    
+        $.ajax({
+            url: `/account/party/reserve/${partyId}`,
+            method: 'POST',
+            data: {
+                csrf_token: csrf_token
+            },
+            success: function(response) {
+                if(response.message === 'Reservation created') {
+                    alert('Reservation created');
+                    window.location.href = '/account/my-parties';
+                }
+            },
+            error: function(error) {
+                console.error('Error creating reservation:', error);
+                alert('An error occurred while creating reservation.');
+            }
+        });
+    });
     
 
     // Register form validation----------------------------------------------

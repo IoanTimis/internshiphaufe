@@ -25,12 +25,30 @@ const party = async (req, res) => {
 };
 
 const parties = async (req, res) => {
-  const parties = await Party.findAll();
+  const parties = await party.findAll();
   if (!parties) {
     return res.status(404).send('No parties found');
   }
   
   res.render('pages/generalPages/parties', { parties: parties });
+};
+
+const addReservation = async (req, res) => {
+  const party_id = req.params.id;
+  const user_id = req.session.loggedInUser.id;
+
+  try {
+    const party = await Party.findByPk(party_id);
+    if (!party) {
+      return res.status(404).send('Party not found');
+    }
+
+    const reservation = await party.addReservation(user_id);
+    res.json({ message: 'Reservation created' });
+  } catch (error) {
+    console.error('Error creating reservation:', error);
+    res.status(500).send('Internal Server Error');
+  }
 };
 
 //Todo: add search functionality
