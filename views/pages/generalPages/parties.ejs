@@ -33,7 +33,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <% parties.forEach(function(party) { %>
                     <div class="col"  data-teacher="<%= party.user_id %>">
-                        <a href="/account/party/<%= party.id %>" class="text-decoration-none text-dark">
+                        <a href="/party/<%= party.id %>" class="text-decoration-none text-dark">
                         <div class="card">
                             <img src="" class="card-img-top" alt="">
                             <div class="card-body">
