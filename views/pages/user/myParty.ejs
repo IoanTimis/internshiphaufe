@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+<body class="container">
+    <header>
+      <%- include('../../partials/header'); %>
+    </header>
+    <main>
+        <div>
+          <h1>Detalii despre: <%= party.title %></h1>
+          <p>Suma intrare <%= party.entry %></p>
+          <p>Data petrecere: <%= party.date %></p>
+          <p>Descriere: <%= party.description %></p>
+          <p>Adresa: <%= party.address %></p>
+          <p>Locuri disponibile: <%= party.max_entries %></p>
+          <p>Locuri ocupate: <%= party.entries_number %></p>
+          <p>Stare petrecere <%= party.status %></p>
+          <p>Locuri ramase:</p>
+        </div>
+
+        <div>
+          <button class="btn btn-info editBtn editPartyBtn" data-id="<%= party.id %>">Edit</button>
+          <button class="btn btn-danger deleteBtn deletePartyBtn" data-id="<%= party.id %>">Delete</button>
+        </div>
+    </main>
+
+
+    <div class="modal fade" id="partyModal" tabindex="-1" aria-labelledby="partyModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="partyModalLabel">Adăugare Petrecere</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="" method="POST" id="partyForm">
+                    <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
+                      <div class="mb-3">
+                          <label for="name" class="form-label">Nume</label>
+                          <input type="text" class="form-control" name="name" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="date" class="form-label">Data</label>
+                          <input type="date" class="form-control" name="date" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="entry" class="form-label">Cost Intrare</label>
+                          <input type="number" class="form-control" name="entry" step="0.01" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="max_entries" class="form-label">Număr Maxim de Locuri</label>
+                          <input type="number" class="form-control" name="max_entries" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="address" class="form-label">Adresa</label>
+                          <input type="text" class="form-control" name="address" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="description" class="form-label">Descriere</label>
+                          <textarea class="form-control" name="description" rows="3"></textarea>
+                      </div>
+                      <div class="mb-3">
+                          <label for="status" class="form-label">Status</label>
+                          <select class="form-select" name="status" required>
+                              <option value="active" selected>Activ</option>
+                              <option value="completed">Finalizat</option>
+                              <option value="cancelled">Anulat</option>
+                          </select>
+                      </div>
+                      
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>
+                          <button type="submit" class="btn btn-primary">Salvează</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <%- include('../../partials/footer'); %>
+
+</body>
+</html>

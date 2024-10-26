@@ -35,17 +35,17 @@
                     <div class="col"  data-teacher="<%= party.user_id %>">
                         <a href="/account/party/<%= party.id %>" class="text-decoration-none text-dark">
                         <div class="card">
-                            <img src="<%= logo.img_url %>" class="card-img-top" alt="">
+                            <img src="" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">Titlu: <%= party.title %></h5>
-                                <p>Descriere: <%= truncateText(party.description, 40) %></p>
-                                <p class="card-text">Cuvinte cheie: <%= party.keywords %></p>
-                                <p class="card-text">Locuri: <%= party.slots %></p>
-                                <p class="card-text">Tip: <%= party.education_level %></p>
-                                <p class="card-text">Profesor: <%= party.user.name %></p>
+                                <h5 class="card-title"><%= party.name %></h5>
+                                <p class="card-text address">Locație: <%= party.address %></p>
+                                <p class="card-text date">Data: <%= party.date %></p>
+                                <p class="card-text description">Descriere: <%= party.description %></p>
+                                <p class="card-text entry">Intrare: <%= party.entry %> RON</p>
+                                <p class="card-text entries_number">Locuri: <%= party.entries_number %> / <%= party.max_entries %></p>
+                                <p class="card-text status">Status: <%= party.status %></p>
                             </div>
                         </div>
-                    
                     <div class="card-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-primary applyBtn">
                             Detalii
