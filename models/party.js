@@ -12,6 +12,13 @@ const Party = sequelize.define('party', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    validate: {
+      isDate: true,
+    },
+  },
   entry: {
     type: DataTypes.FLOAT,
     allowNull: false,
@@ -65,7 +72,8 @@ const Party = sequelize.define('party', {
   },
 });
 
-User.hasMany(Party, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-Party.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(Party, { foreignKey: 'user_id', onDelete: 'CASCADE', as: 'parties' });
+Party.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+
 
 module.exports = Party;

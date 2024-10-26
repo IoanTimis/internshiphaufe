@@ -53,7 +53,6 @@ const sequelize = require('./config/database');
 const User = require('./models/user');
 const Party = require('./models/party');
 const Invitation = require('./models/invitation');
-const Item = require('./models/item');
 
 sequelize.sync({ force: false })
   .then(() => {

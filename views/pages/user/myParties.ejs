@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../partials/head') %>
+</head>
+<body class="container">
+    <header>
+      <%- include('../../partials/header'); %>
+    </header>
+    <main>
+        <div class="container partiesContainer" id="partiesContainer">
+            <div class="newParty my-4">
+                <button type="button" class="btn btn-primary addBtn" data-bs-toggle="modal" data-bs-target="#partyModal">
+                    Adăugare Petrecere
+                </button>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="partiesRow">
+              <% if (user && user.parties && user.parties.length > 0) { %>
+                <% user.parties.forEach(function(party) { %>
+                    <div class="col">
+                        <div class="card h-100" data-id="<%= party.id %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= party.name %></h5>
+                                <p class="card-text">Locație: <%= party.address %></p>
+                                <p class="card-text">Descriere: <%= party.description %></p>
+                                <p class="card-text">Intrare: <%= party.entry %> RON</p>
+                                <p class="card-text">Locuri: <%= party.entries_number %> / <%= party.max_entries %></p>
+                                <p class="card-text">Status: <%= party.status %></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actiuni
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><button type="button" class="dropdown-item editBtn" data-id="<%= party.id %>">Editează</button></li>
+                                        <li><button type="button" class="dropdown-item deleteBtn" data-id="<%= party.id %>">Șterge</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+              <% } %>
+            </div>
+        </div> 
+    </main>
+    
+    <!-- Modal pentru creare/editare petrecere -->
+    <div class="modal fade" id="partyModal" tabindex="-1" aria-labelledby="partyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="partyModalLabel">Adăugare Petrecere</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="partyForm">
+                      <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nume</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Data</label>
+                            <input type="date" class="form-control" name="date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="entry" class="form-label">Cost Intrare</label>
+                            <input type="number" class="form-control" name="entry" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="max_entries" class="form-label">Număr Maxim de Locuri</label>
+                            <input type="number" class="form-control" name="max_entries" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Adresa</label>
+                            <input type="text" class="form-control" name="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descriere</label>
+                            <textarea class="form-control" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" name="status" required>
+                                <option value="active" selected>Activ</option>
+                                <option value="completed">Finalizat</option>
+                                <option value="cancelled">Anulat</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Închide</button>
+                            <button type="submit" class="btn btn-primary">Salvează</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <%- include('../../partials/footer'); %>
+
+</body>
+</html>

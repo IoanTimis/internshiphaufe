@@ -1,29 +1,53 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../../partials/head') %>
-  <link rel="stylesheet" href="/css/account.css">
+    <%- include('../../partials/head'); %>
+    <title>Account Dashboard</title>
 </head>
-<body>
-
-  <div class="sidebar">
-    <a href="/account">Cont</a>
-    <a href="/account/purchase-history">Istoric achizitii</a>
-    <a href="/">Inapoi la cumparaturi</a>
-    <a href="/logout">iesi din cont</a>
-  </div>
-
-  <div class="main-content">
-    <header class="bg-light p-3 shadow-sm">
-      <li class="header-item">
-        <h1>Contul meu</h1>
-      </li>
+<body class="container">
+    <header>
+        <%- include('../../partials/header'); %>
     </header>
-    
-    <div class="container mt-3">
-      <h2>Bine ai venit in contul tau, <%= loggedInUser.name %></h2>
-      <p>Aici puteti vedea informatii despre istoricul de cumparaturilor</p>
-    </div>
 
-  </div>
+    <main class="container mt-5">
+        <h1 class="text-center mb-4">Account Dashboard</h1>
+        <div class="row">
+            <!-- Link pentru gestionarea invitațiilor -->
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Invitațiile Mele</h5>
+                        <p class="card-text">Gestionați invitațiile pentru petreceri și evenimente.</p>
+                        <a href="/account/invitations" class="btn btn-primary">Vezi Invitațiile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link pentru gestionarea petrecerilor mele -->
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Petrecerile Mele</h5>
+                        <p class="card-text">Creează și gestionează petrecerile organizate de tine.</p>
+                        <a href="/account/my-parties" class="btn btn-primary">Vezi Petrecerile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link pentru editarea profilului -->
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Editare Profil</h5>
+                        <p class="card-text">Actualizați informațiile de profil și preferințele contului.</p>
+                        <a href="/account/profile" class="btn btn-secondary">Editează Profilul</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <%- include('../../partials/footer'); %>
+
 </body>
 </html>

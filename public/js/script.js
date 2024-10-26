@@ -1,41 +1,85 @@
 $(document).ready(function() {
-    
-    $('.buyBtn').on('click', function(e) {
+    // account--------------------------------------------------------------
+    var modal = $('#partyModal');
+    var partyForm = $('#partyForm');
+
+    // Submit handler pentru partyForm
+    partyForm.on('submit', function(e) {
         e.preventDefault();
-        var name = $(this).parent().find('strong').html();
-        var price = $(this).parent().find('span').html();
-        var csrf_token = $('#csrf_token').val();
+
+        var name = partyForm.find('input[name="name"]').val();
+        var date = partyForm.find('input[name="date"]').val();
+        var address = partyForm.find('input[name="address"]').val();
+        console.log(address);
+        var description = partyForm.find('input[name="description"]').val();
+        console.log(description);
+        var max_entries = partyForm.find('input[name="max_entries"]').val();
+        var entry = partyForm.find('input[name="entry"]').val();
+        var csrf_token = partyForm.find('input[name="csrf_token"]').val();
+        
+        var method = partyForm.attr('method');
+        var status = (method === 'POST') ? 'active' : partyForm.find('input[name="status"]').val();
+        var url = partyForm.attr('action');
+
         $.ajax({
-            url: '/account/purchase/add',
-            type: 'post',
+            url: url,
+            method: method,
             data: {
-                    name: name,
-                    price: price,
-                    csrf_token: csrf_token
-             },
+                name: name,
+                date: date,
+                address: address,
+                description: description,
+                max_entries: max_entries,
+                entry: entry,
+                status: status,
+                csrf_token: csrf_token
+            },
             success: function(response) {
                 console.log(response);
-                alert('Produs Cumparat cu succes!');
-            }, 
+                if(response.message === 'Party created') {
+                    alert('Party created');
+                    window.location.href = '/account/my-parties';
+                }
+            },
             error: function(error) {
                 console.log(error);
-                alert('Produsul nu a putut fi cumparat!');
             }
         });
     });
 
-    var $form = $('#registerForm');
+    // Configurare modal pentru adăugare petrecere
+    $('.newParty .btn-primary').on('click', function() {
+        partyForm.attr('action', '/account/party/add');
+        partyForm.attr('method', 'POST');
 
-    $form.on('submit', function(e) {
-        if($form.find('input[name="password"]').val().length < 6) {
+        partyForm.find('input[name="name"]').val('');
+        partyForm.find('input[name="date"]').val('');
+        partyForm.find('input[name="address"]').val('');
+        partyForm.find('input[name="description"]').val('');
+        partyForm.find('input[name="max_entries"]').val('');
+        partyForm.find('input[name="entry"]').val('');
+
+        modal.find('.modal-title').text('Adauga petrecere');
+        modal.find('.btn-primary').text('Adauga');
+    });
+
+    $('.card-footer')
+
+    // Register form validation----------------------------------------------
+    var $registerForm = $('#registerForm');
+
+    $registerForm.on('submit', function(e) {
+        var password = $registerForm.find('input[name="password"]').val();
+        var passwordConfirm = $registerForm.find('input[name="passwordConfirm"]').val();
+
+        if(password.length < 6) {
             alert('Parola trebuie sa fie de minim 6 caractere!');
             return false;
         }
-        if($form.find('input[name="password"]').val() !== $form.find('input[name="passwordConfirm"]').val()) {
+        if(password !== passwordConfirm) {
             alert('Parolele nu coincid!');
             return false;
-        } else {
-            return true;
         }
+        return true;
     });
 });

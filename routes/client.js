@@ -9,5 +9,7 @@ router.use([isLogged]);
 const userController = require('../controllers/client'); 
 
 router.get('/', userController.home);
+router.get('/my-parties', userController.myParties);
+router.post('/party/add', userController.addParty);
 
 module.exports = router; 

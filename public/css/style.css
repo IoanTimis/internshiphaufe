@@ -1,82 +1,43 @@
 html, body {
-  height: 100vh;
-  margin: 0;
+  height: 100%;
+}
+
+body {
   display: flex;
   flex-direction: column;
 }
 
-.container {
-  flex: 1 0 auto;
+main {
+  flex: 1;
 }
 
+/* Container pentru organizarea butoanelor pe verticală */
 
-.deleteBtn{
+
+/* Stiluri pentru butoanele de acțiune */
+.deleteBtn, .editBtn, .buyBtn {
   background-color: black;
   color: white;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: fit-content;
 }
 
-.deleteBtn:hover{
+.deleteBtn:hover, .editBtn:hover, .buyBtn:hover {
     background-color: #f44336;
     color: white;
 }
 
-.editBtn{
-  background-color: black;
-  color: white;
-  position: absolute;
-  right: 100px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.card-footer{
+  border: 1px solid #ccc;
+  border-top: none;
 }
 
-.editBtn:hover{
-    background-color: #f44336;
-    color: white;
-}
-
-.buyBtn{
-  background-color: black;
-  color: white;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.buyBtn:hover{
-    background-color: #f44336;
-    color: white;
-}
-
-
-.liProduct{
-  background-color: #f9f9f9;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  position: relative;
-}
-
+/* Stiluri pentru footer */
 .footer {
-  position: relative;
   width: 100%;
-  bottom: 0;
   margin-top: auto;
   background-color: #f8f9fa;
   padding: 1rem 0;
@@ -88,4 +49,3 @@ html, body {
   margin: 0;
   padding: 1rem;
 }
-
